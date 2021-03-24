@@ -5,7 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "test": "eslint --ext .ts,.js .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "invoke-local": "sls invoke local --function coffeeSync"
   },
   "repository": {
     "type": "git",
