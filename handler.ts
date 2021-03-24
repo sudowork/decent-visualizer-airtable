@@ -27,13 +27,17 @@ async function findMissingShots(): Promise<string[]> {
 }
 
 async function getAirtableShotIds(last: number): Promise<string[]> {
-    const query = getCoffeeTable(LOG_TABLE).select({
+    const query = logTable().select({
         maxRecords: last,
         fields: ["Shot Id"],
         sort: [{ field: "Date/Time", direction: "desc" }],
     });
     const runQuery = util.promisify(query.firstPage);
     return runQuery().then((records) => records?.map((record) => record.getId()) ?? []);
+}
+
+function logTable(): Table {
+    return getCoffeeTable(LOG_TABLE);
 }
 
 function getCoffeeTable(tableName: string): Table {
