@@ -30,6 +30,7 @@ module.exports.coffeeSync = async (event: string) => {
             (record) => `${record.get(FIELD_NAMES.ID)} (${record.getId()})`
         );
         const message = `Uploaded ${uploadedShotIds.length} shots:\n${uploadedShotIds.join("\n")}`;
+        console.log(message);
         return createResponse(200, message, event);
     } catch (err) {
         console.error(err);
