@@ -2,7 +2,7 @@ import * as util from "util";
 import Airtable from "airtable";
 import Table from "airtable/lib/table";
 import AirtableRecord from "airtable/lib/record";
-import { getShots, getShot, Shot, getExtractionTime } from "./lib/visualizer";
+import { getShots, getShot, Shot, getExtractionTime, getPreviewImage } from "./lib/visualizer";
 
 const SHOTS_PER_BATCH = 5;
 const LOG_TABLE = "Decent Espresso Log";
@@ -15,6 +15,7 @@ const FIELD_NAMES = {
     EXTRACTION_TIME: "Total Extraction Time",
     MACHINE: "Coffee Machine",
     GRINDER: "Grinder",
+    ATTACHMENTS: "Attachments",
 };
 
 module.exports.coffeeSync = async (event: string) => {
@@ -59,7 +60,8 @@ async function getAirtableShotIds(last: number): Promise<string[]> {
 
 async function uploadShots(shotIds: string[]): Promise<AirtableRecord[]> {
     const shots = await Promise.all(shotIds.map(getShot));
-    const shotRecords = shots.map(shotToRecord);
+    const previewImages = await Promise.all(shotIds.map(getPreviewImage));
+    const shotRecords = shots.map((shot, i) => shotToRecord(shot, previewImages[i]));
     if (process.env.DEBUG) {
         console.log(`Would create the following records: ${JSON.stringify(shotRecords, null, 2)}`);
         return shotRecords.map(
@@ -74,9 +76,9 @@ async function uploadShots(shotIds: string[]): Promise<AirtableRecord[]> {
     return createRecords(shotRecords);
 }
 
-function shotToRecord(shot: Shot): { fields: Record<string, any> } {
+function shotToRecord(shot: Shot, previewImage: string | null): { fields: Record<string, any> } {
     const { VISUALIZER_BASE_URL, FIELD_COFFEE_MACHINE, FIELD_GRINDER } = process.env;
-    return {
+    const record: { fields: Record<string, any> } = {
         // These map to Airtable fields
         fields: {
             [FIELD_NAMES.ID]: shot.id,
@@ -89,6 +91,13 @@ function shotToRecord(shot: Shot): { fields: Record<string, any> } {
             [FIELD_NAMES.GRINDER]: [FIELD_GRINDER],
         },
     };
+    if (previewImage) {
+        const imageId = previewImage.split("/").pop();
+        record.fields[FIELD_NAMES.ATTACHMENTS] = [
+            { filename: `${imageId}.png`, url: previewImage },
+        ];
+    }
+    return record;
 }
 
 function logTable(): Table {
