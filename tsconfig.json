@@ -8,6 +8,7 @@
     "target": "es5",
     "moduleResolution": "node",
     "lib": ["es2015"],
-    "rootDir": "./"
+    "rootDir": "./",
+    "outDir": ".build",
   }
 }
