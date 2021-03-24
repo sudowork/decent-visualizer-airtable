@@ -79,8 +79,8 @@ function shotToRecord(shot: Shot): { fields: Record<string, any> } {
             [FIELD_NAMES.DATETIME]: shot.start_time,
             [FIELD_NAMES.YIELD]: shot.drink_weight,
             [FIELD_NAMES.EXTRACTION_TIME]: getExtractionTime(shot),
-            [FIELD_NAMES.MACHINE]: FIELD_COFFEE_MACHINE,
-            [FIELD_NAMES.GRINDER]: FIELD_GRINDER,
+            [FIELD_NAMES.MACHINE]: [FIELD_COFFEE_MACHINE],
+            [FIELD_NAMES.GRINDER]: [FIELD_GRINDER],
         },
     };
 }
