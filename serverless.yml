@@ -26,6 +26,8 @@ functions:
             VISUALIZER_PASSWORD: ${ssm:/visualizer-airtable/visualizer/password~true}
             AIRTABLE_API_KEY: ${ssm:/visualizer-airtable/airtable/api-key~true}
             AIRTABLE_BASE: ${ssm:/visualizer-airtable/airtable/base~true}
+            FIELD_COFFEE_MACHINE: ${ssm:/visualizer-airtable/coffee-machine}
+            FIELD_GRINDER: ${ssm:/visualizer-airtable/grinder}
 
 custom:
     serverless-offline-ssm:
