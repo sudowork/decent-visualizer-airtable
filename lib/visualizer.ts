@@ -1,6 +1,8 @@
 import fetch, { Response } from "node-fetch";
 import * as querystring from "querystring";
 
+const IMAGE_PREVIEW_RE = /https:\/\/res.cloudinary.com\/[^"]+/i;
+
 type ShotData = {
     [K in
         | "espresso_flow"
@@ -77,6 +79,17 @@ export function getExtractionTime({ timeframe }: Shot): number {
 
 function parseStringTimeSeries(data: string[]): number[] {
     return data.map((x) => parseFloat(x));
+}
+
+export async function getPreviewImage(shotId: string): Promise<string | null> {
+    try {
+        const body = await makeVisualizerRequest(`/shots/${shotId}`).then((resp) => resp.text());
+        const match = body.match(IMAGE_PREVIEW_RE);
+        return match ? match[0] : null;
+    } catch (err) {
+        console.warn(`Failed to get shot preview image for shot ${shotId}`);
+        return null;
+    }
 }
 
 async function makeVisualizerRequest(
