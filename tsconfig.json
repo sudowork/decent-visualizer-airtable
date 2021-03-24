@@ -4,6 +4,7 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "allowJs": true,
+    "strict": true,
     "target": "es5",
     "moduleResolution": "node",
     "lib": ["es2015"],
