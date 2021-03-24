@@ -19,12 +19,12 @@ type ShotData = {
         | "espresso_water_dispensed"]: number[];
 };
 
-interface ShotId {
+export interface ShotId {
     clock: number;
     id: string;
 }
 
-interface Shot {
+export interface Shot {
     start_time: string;
     profile_title: string;
     user_id: string;
