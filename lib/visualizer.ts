@@ -25,6 +25,7 @@ export interface ShotId {
 }
 
 export interface Shot {
+    id: string;
     start_time: string;
     profile_title: string;
     user_id: string;
@@ -45,6 +46,7 @@ export async function getShot(id: string): Promise<Shot> {
         .then((body) => {
             const { timeframe, data: espressoData } = body;
             return {
+                id,
                 ...body,
                 ...{
                     timeframe: parseStringTimeSeries(timeframe),
