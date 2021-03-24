@@ -24,6 +24,8 @@ functions:
             VISUALIZER_BASE_URL: https://visualizer.coffee
             VISUALIZER_USER: ${ssm:/visualizer-airtable/visualizer/user~true}
             VISUALIZER_PASSWORD: ${ssm:/visualizer-airtable/visualizer/password~true}
+            AIRTABLE_API_KEY: ${ssm:/visualizer-airtable/airtable/api-key~true}
+            AIRTABLE_BASE: ${ssm:/visualizer-airtable/airtable/base~true}
 
 custom:
     serverless-offline-ssm:
