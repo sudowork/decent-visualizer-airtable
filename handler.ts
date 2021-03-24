@@ -74,7 +74,7 @@ function shotToRecord(shot: Shot): { fields: Record<string, any> } {
         // These map to Airtable fields
         fields: {
             [FIELD_NAMES.ID]: shot.id,
-            [FIELD_NAMES.URL]: `${VISUALIZER_BASE_URL}/shot/${shot.id}`,
+            [FIELD_NAMES.URL]: `${VISUALIZER_BASE_URL}/shots/${shot.id}`,
             [FIELD_NAMES.PROFILE]: shot.profile_title,
             [FIELD_NAMES.DATETIME]: shot.start_time,
             [FIELD_NAMES.YIELD]: shot.drink_weight,
