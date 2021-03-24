@@ -19,6 +19,12 @@ const FIELD_NAMES = {
 };
 
 module.exports.coffeeSync = async (event: string) => {
+    if (process.env.TEST_SHOT) {
+        const testRecord = (await uploadShots([process.env.TEST_SHOT]))[0];
+        console.log(JSON.stringify({ id: testRecord.getId(), fields: testRecord.fields }, null, 2));
+        return createResponse(200, "ok", event);
+    }
+
     try {
         const missingShotIds = await findMissingShots();
         if (missingShotIds.length === 0) {
