@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sudowork/decent-visualizer-airtable/issues"
   },
-  "homepage": "https://github.com/sudowork/decent-visualizer-airtable#readme"
+  "homepage": "https://github.com/sudowork/decent-visualizer-airtable#readme",
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
 }
