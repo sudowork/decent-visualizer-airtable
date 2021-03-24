@@ -18,12 +18,12 @@ service: decent-visualizer-airtable
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 provider:
-  name: aws
-  runtime: nodejs12.x
-  lambdaHashingVersion: 20201221
+    name: aws
+    runtime: nodejs12.x
+    lambdaHashingVersion: 20201221
 
 # you can overwrite defaults here
 #  stage: dev
@@ -59,8 +59,8 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+    hello:
+        handler: handler.hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
