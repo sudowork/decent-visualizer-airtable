@@ -11,8 +11,9 @@ provider:
 region: us-west-2
 
 functions:
-    hello:
-        handler: handler.hello
+    # Synchronizes shot data from visualizer.coffee -> Airtable
+    coffeeSync:
+        handler: handler.coffeeSync
         events:
             schedule: rate(10 minutes)
         environment:

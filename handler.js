@@ -1,4 +1,4 @@
-module.exports.hello = async (event) => ({
+module.exports.coffeeSync = async (event) => ({
     statusCode: 200,
     body: JSON.stringify(
         {
