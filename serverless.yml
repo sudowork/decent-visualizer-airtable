@@ -19,7 +19,7 @@ functions:
     coffeeSync:
         handler: handler.coffeeSync
         events:
-            - schedule: rate(10 minutes)
+            - schedule: rate(5 minutes)
         environment:
             VISUALIZER_BASE_URL: https://visualizer.coffee
             VISUALIZER_USER: ${ssm:/visualizer-airtable/visualizer/user~true}
