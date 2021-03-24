@@ -1,12 +1,17 @@
 service: decent-visualizer-airtable
 
 frameworkVersion: "2"
+useDotenv: true
 
 provider:
     name: aws
     runtime: nodejs12.x
     lambdaHashingVersion: 20201221
     region: us-west-2
+
+plugins:
+    - serverless-offline-ssm
+    - serverless-offline
 
 functions:
     # Synchronizes shot data from visualizer.coffee -> Airtable
@@ -16,3 +21,10 @@ functions:
             - schedule: rate(10 minutes)
         environment:
             VISUALIZER_BASE_URL: https://visualizer.coffee
+            VISUALIZER_USER: ${ssm:/visualizer-airtable/visualizer/user~true}
+            VISUALIZER_PASSWORD: ${ssm:/visualizer-airtable/visualizer/password~true}
+
+custom:
+    serverless-offline-ssm:
+        stages:
+            - offline
