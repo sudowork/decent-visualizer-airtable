@@ -1,0 +1,19 @@
+{
+  "name": "decent-visualizer-airtable",
+  "version": "1.0.0",
+  "description": "Integration between visualizer.coffee and Airtable",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudowork/decent-visualizer-airtable.git"
+  },
+  "author": "Kevin Gao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sudowork/decent-visualizer-airtable/issues"
+  },
+  "homepage": "https://github.com/sudowork/decent-visualizer-airtable#readme"
+}
