@@ -12,6 +12,7 @@ provider:
 plugins:
     - serverless-offline-ssm
     - serverless-offline
+    - serverless-plugin-typescript
 
 functions:
     # Synchronizes shot data from visualizer.coffee -> Airtable

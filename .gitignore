@@ -106,4 +106,7 @@ dist
 # Serverless directories
 .serverless
 
+# TypeScript
+.build
+
 .vscode
