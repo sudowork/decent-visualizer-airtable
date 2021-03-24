@@ -20,6 +20,11 @@ const FIELD_NAMES = {
 module.exports.coffeeSync = async (event: string) => {
     try {
         const missingShotIds = await findMissingShots();
+        if (missingShotIds.length === 0) {
+            console.log("Found no missing shots. Exiting.");
+            return createResponse(200, "Shots are synchronized.", event);
+        }
+
         const uploadedRecords = await uploadShots(missingShotIds);
         const uploadedShotIds = uploadedRecords.map(
             (record) => `${record.get(FIELD_NAMES.ID)} (${record.getId()})`
