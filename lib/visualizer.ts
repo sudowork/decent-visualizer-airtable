@@ -44,13 +44,22 @@ export async function getShot(id: string): Promise<Shot> {
     return makeVisualizerRequest(endpoint)
         .then((resp) => resp.json())
         .then((body) => {
-            const { timeframe, data: espressoData } = body;
+            const {
+                timeframe,
+                data: espressoData,
+            }: { timeframe: string[]; data: { [k: string]: string[] } } = body;
             return {
                 id,
                 ...body,
                 ...{
                     timeframe: parseStringTimeSeries(timeframe),
-                    data: parseStringTimeSeries(espressoData),
+                    data: Object.entries(espressoData).reduce(
+                        (acc: Record<string, number[]>, [key, value]) => {
+                            acc[key] = parseStringTimeSeries(value);
+                            return acc;
+                        },
+                        {}
+                    ),
                 },
             };
         });
