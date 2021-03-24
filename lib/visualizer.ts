@@ -65,6 +65,10 @@ export async function getShot(id: string): Promise<Shot> {
         });
 }
 
+export function getExtractionTime({ timeframe }: Shot): number {
+    return timeframe?.pop() || 0;
+}
+
 function parseStringTimeSeries(data: string[]): number[] {
     return data.map((x) => parseFloat(x));
 }
