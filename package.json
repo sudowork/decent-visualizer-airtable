@@ -6,7 +6,8 @@
   "scripts": {
     "test": "eslint --ext .ts,.js .",
     "prepare": "husky install",
-    "invoke-local": "sls invoke local --function coffeeSync"
+    "invoke-local": "DEBUG=* sls invoke local --function coffeeSync",
+    "invoke-local-prod": "sls invoke local --function coffeeSync"
   },
   "repository": {
     "type": "git",
