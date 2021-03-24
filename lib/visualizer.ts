@@ -29,7 +29,7 @@ export interface Shot {
     start_time: string;
     profile_title: string;
     user_id: string;
-    drink_weight: string;
+    drink_weight: number;
     timeframe: number[];
     data: ShotData;
 }
@@ -46,12 +46,18 @@ export async function getShot(id: string): Promise<Shot> {
         .then((body) => {
             const {
                 timeframe,
+                drink_weight: drinkWeight,
                 data: espressoData,
-            }: { timeframe: string[]; data: { [k: string]: string[] } } = body;
+            }: {
+                timeframe: string[];
+                drink_weight: string;
+                data: { [k: string]: string[] };
+            } = body;
             return {
                 id,
                 ...body,
                 ...{
+                    drink_weight: parseFloat(drinkWeight),
                     timeframe: parseStringTimeSeries(timeframe),
                     data: Object.entries(espressoData).reduce(
                         (acc: Record<string, number[]>, [key, value]) => {
