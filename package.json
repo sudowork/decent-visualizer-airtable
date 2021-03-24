@@ -35,6 +35,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
+    "airtable": "^0.10.1",
     "node-fetch": "^2.6.1"
   }
 }
