@@ -44,8 +44,9 @@ function hmacSignature(event: HttpEvent): string {
     const hmac = createHmac("sha256", HMAC_SECRET);
     const { clock } = authHeader;
     const { body, requestContext } = event;
-    const { resourcePath } = requestContext;
-    const message = `${resourcePath}\n${clock}\n${body}`;
+    // Some inconsistency between offline and actual.
+    const path = process.env.IS_OFFLINE ? requestContext.resourcePath : requestContext.path;
+    const message = `${path}\n${clock}\n${body}`;
     hmac.update(message);
     return hmac.digest("hex");
 }
