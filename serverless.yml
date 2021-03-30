@@ -23,7 +23,7 @@ functions:
             - http:
                   path: decent/webhook
                   method: post
-            - schedule: rate(5 minutes)
+            - schedule: rate(30 minutes)
         environment:
             VISUALIZER_BASE_URL: https://visualizer.coffee
             VISUALIZER_USER: ${ssm:/visualizer-airtable/visualizer/user~true}
