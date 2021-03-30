@@ -3,6 +3,7 @@ import Airtable from "airtable";
 import Table from "airtable/lib/table";
 import AirtableRecord from "airtable/lib/record";
 import { getShots, getShot, Shot, getExtractionTime } from "./lib/visualizer";
+import { checkHMACAuth, isHttpEvent } from "./lib/http";
 
 const SHOTS_PER_BATCH = 5;
 const LOG_TABLE = "Decent Espresso Log";
@@ -18,7 +19,15 @@ const FIELD_NAMES = {
     ATTACHMENTS: "Attachments",
 };
 
-module.exports.coffeeSync = async (event: string) => {
+module.exports.coffeeSync = async (event: object | string) => {
+    if (isHttpEvent(event)) {
+        if (!checkHMACAuth(event)) {
+            console.error("HMAC Auth Failed");
+            return createResponse(401, "HMAC Auth failed", event);
+        }
+    }
+
+    // Handle test shot
     if (process.env.TEST_SHOT) {
         const testRecord = (await uploadShots([process.env.TEST_SHOT]))[0];
         console.log(JSON.stringify({ id: testRecord.getId(), fields: testRecord.fields }, null, 2));
