@@ -20,6 +20,9 @@ functions:
     coffeeSync:
         handler: handler.coffeeSync
         events:
+            - http:
+                  path: decent/webhook
+                  method: post
             - schedule: rate(5 minutes)
         environment:
             VISUALIZER_BASE_URL: https://visualizer.coffee
